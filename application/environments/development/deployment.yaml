@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dasarathi
+spec:
+  selector:
+    matchLabels:
+      app: dasarathi
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: dasarathi
+    spec:
+      containers:
+      - name: dasarathi
+        image: nginx:1.23.1
+        ports:
+        - containerPort: 8080

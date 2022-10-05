@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: application-environments-development
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dasarathirout/argocd-app-config.git
+    targetRevision: HEAD
+    path: application/environments/development
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dasarathi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - Validate=false
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
+    retry:
+      limit: 3
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 3m
