@@ -1,0 +1,7 @@
+# Local Dev Env
+environment : 'local'
+database:
+  hostname: postgres.sql.local
+  port: 5432
+  schema: postgres
+  user: postgres

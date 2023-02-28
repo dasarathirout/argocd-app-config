@@ -1,0 +1,34 @@
+#Service-One Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceOne.name }}
+  labels:
+    app: {{ .Values.serviceOne.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceOne.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceOne.name }}
+    spec:
+      containers:
+        - name: {{ .Values.application.labels }}-{{ .Values.serviceOne.name }}
+          image: {{ .Values.docker.user }}/{{.Values.serviceOne.image}}:{{ .Values.serviceOne.tag }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.serviceOne.port }}
+          readinessProbe:
+            httpGet:
+              port: http
+              path: {{ .Values.serviceOne.heartBeat }}
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              port: http
+              path: {{ .Values.serviceOne.heartBeat }}

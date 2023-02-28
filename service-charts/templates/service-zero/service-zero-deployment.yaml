@@ -1,0 +1,34 @@
+#Service-Zero Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceZero.name }}
+  labels:
+    app: {{ .Values.serviceZero.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceZero.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceZero.name }}
+    spec:
+      containers:
+        - name: {{ .Values.application.labels }}-{{ .Values.serviceZero.name }}
+          image: {{ .Values.docker.user }}/{{.Values.serviceZero.image}}:{{ .Values.serviceZero.tag }}
+          ports:
+              - name: http
+                containerPort: {{ .Values.serviceZero.port }}
+          readinessProbe:
+            httpGet:
+              port: http
+              path:  {{ .Values.serviceZero.heartBeat }}
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              port: http
+              path: {{ .Values.serviceZero.heartBeat }}

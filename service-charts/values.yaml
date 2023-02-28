@@ -1,0 +1,41 @@
+# Default Values For :  dasarathi-service-apis-charts.
+environment: development
+application:
+  name: 'dasarathi-k8s'
+  labels: 'drout'
+
+database:
+  hostname: 'postgresql'
+  port: '5678'
+  schema: 'postgres'
+
+deployment:
+  namespace : 'default'
+  gateway: 'gateway.docker.internal'
+  loadBalancer: 'host.docker.internal'
+
+docker:
+  user: dasarathirout
+  busyBox: 'busybox:latest'
+
+serviceZero:
+  name: service-zero
+  port: 8180
+  endPoint: /portal-zero
+  heartBeat: /portal-zero/management/actuator/heart-beat
+  image: dasarathi-api-service-zero
+  tag: v3
+serviceOne:
+  name: service-one
+  port: 8181
+  endPoint: /portal-one
+  heartBeat: /portal-one/management/actuator/heart-beat
+  image: dasarathi-api-service-one
+  tag: v1
+serviceTwo:
+  name: service-two
+  port: 8182
+  endPoint: /portal-two
+  heartBeat: /portal-two/management/actuator/heart-beat
+  image: dasarathi-api-service-two
+  tag: v2

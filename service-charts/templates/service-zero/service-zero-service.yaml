@@ -1,0 +1,15 @@
+#Service-Zero Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceZero.name }}
+  app: {{ .Values.serviceZero.name }}
+spec:
+  selector:
+    name: {{ .Values.serviceZero.name }}
+    app: {{ .Values.serviceZero.name }}
+  ports:
+    - name: http-zero
+      protocol: TCP
+      port: {{ .Values.serviceZero.port }}
+      targetPort: {{ .Values.serviceZero.port }}

@@ -1,0 +1,10 @@
+#Service-One ConfigMaps
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.serviceOne.name }}
+data:
+  HOSTNAME:  {{ .Values.database.hostname  | quote }}
+  PORT: {{ .Values.database.port | quote }}
+  SCHEMA: {{ .Values.database.schema | quote }}
+immutable: true

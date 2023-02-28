@@ -1,0 +1,41 @@
+#Service-Two Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceTwo.name }}
+  labels:
+    app: {{ .Values.serviceTwo.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceTwo.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceTwo.name }}
+    spec:
+      initContainers:
+        - name: wait-init-container-{{ .Values.serviceZero.name }}
+          image: {{ .Values.docker.user }}/{{.Values.serviceZero.image}}:{{ .Values.serviceZero.tag }}
+          command: [ 'sh', '-c', 'until wget --spider http://service-zero:8180/portal-zero/management/actuator/heart-beat; do echo Waiting for service-zero-heart-beat; sleep 5; done;' ]
+        - name: wait-init-container-{{ .Values.serviceOne.name }}
+          image: {{ .Values.docker.user }}/{{.Values.serviceOne.image}}:{{ .Values.serviceOne.tag }}
+          command: [ 'sh', '-c', 'until wget --spider http://service-one:8181/portal-one/management/actuator/heart-beat; do echo Waiting for service-one-heart-beat; sleep 5; done;' ]
+      containers:
+        - name: {{ .Values.application.labels }}-{{ .Values.serviceTwo.name }}
+          image: {{ .Values.docker.user }}/{{.Values.serviceTwo.image}}:{{ .Values.serviceTwo.tag }}
+          ports:
+              - name: http
+                containerPort: {{ .Values.serviceTwo.port }}
+          readinessProbe:
+            httpGet:
+              port: http
+              path:  {{ .Values.serviceTwo.heartBeat }}
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              port: http
+              path:  {{ .Values.serviceTwo.heartBeat }}

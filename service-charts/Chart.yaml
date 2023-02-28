@@ -1,0 +1,7 @@
+# Base Chart Definition
+apiVersion: v2
+name: dasarathi-service-apis-charts
+description: dasarathi-service-apis helm charts for Kubernetes(Docker Desktop)
+type: application
+version: "v1.23.456"
+appVersion: "v2023.02.19"

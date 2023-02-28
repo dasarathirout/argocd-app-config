@@ -1,0 +1,34 @@
+# Dasarathi-LB-Ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.environment }}-{{ .Values.application.name }}-{{ .Values.deployment.namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+   - host: {{ .Values.deployment.gateway }}
+     http:
+       paths:
+       - path: {{ .Values.serviceZero.endPoint }}
+         pathType: Prefix
+         backend:
+           service:
+             name: {{ .Values.serviceZero.name }}
+             port:
+               number: {{ .Values.serviceZero.port }}
+       - path: {{ .Values.serviceOne.endPoint }}
+         pathType: Prefix
+         backend:
+           service:
+             name: {{ .Values.serviceOne.name }}
+             port:
+               number: {{ .Values.serviceOne.port }}
+       - path: {{ .Values.serviceTwo.endPoint }}
+         pathType: Prefix
+         backend:
+           service:
+             name: {{ .Values.serviceTwo.name }}
+             port:
+               number: {{ .Values.serviceTwo.port }}

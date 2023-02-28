@@ -1,0 +1,15 @@
+#Service-One Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceOne.name }}
+  app: {{ .Values.serviceOne.name }}
+spec:
+  selector:
+    name: {{ .Values.serviceOne.name }}
+    app: {{ .Values.serviceOne.name }}
+  ports:
+    - name: http-one
+      protocol: TCP
+      port: {{ .Values.serviceOne.port }}
+      targetPort: {{ .Values.serviceOne.port }}

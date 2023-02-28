@@ -1,0 +1,15 @@
+#Service-Two Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceTwo.name }}
+  app: {{ .Values.serviceTwo.name }}
+spec:
+  selector:
+    name: {{ .Values.serviceTwo.name }}
+    app: {{ .Values.serviceTwo.name }}
+  ports:
+    - name: http-two
+      protocol: TCP
+      port: {{ .Values.serviceTwo.port }}
+      targetPort: {{ .Values.serviceTwo.port }}

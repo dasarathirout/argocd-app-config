@@ -1,0 +1,10 @@
+#Service-Two ConfigMaps
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.serviceTwo.name }}
+data:
+  HOSTNAME:  {{ .Values.database.hostname  | quote }}
+  PORT: {{ .Values.database.port | quote }}
+  SCHEMA: {{ .Values.database.schema | quote }}
+immutable: true

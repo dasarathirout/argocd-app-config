@@ -1,0 +1,6 @@
+serviceZero:
+  name: service-zero
+  port: 8180
+  endPoint: /portal-zero/*
+  image: dasarathi-api-service-zero
+  tag: v3
