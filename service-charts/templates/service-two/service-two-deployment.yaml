@@ -16,10 +16,10 @@ spec:
         app: {{ .Values.serviceTwo.name }}
     spec:
       initContainers:
-        - name: wait-init-container-{{ .Values.serviceZero.name }}
+        - name: wait-{{ .Values.application.labels }}-{{ .Values.serviceZero.name }}
           image: {{ .Values.docker.user }}/{{.Values.serviceZero.image}}:{{ .Values.serviceZero.tag }}
           command: [ 'sh', '-c', 'until wget --spider http://service-zero:8180/portal-zero/management/actuator/heart-beat; do echo Waiting for service-zero-heart-beat; sleep 5; done;' ]
-        - name: wait-init-container-{{ .Values.serviceOne.name }}
+        - name: wait-{{ .Values.application.labels }}-{{ .Values.serviceOne.name }}
           image: {{ .Values.docker.user }}/{{.Values.serviceOne.image}}:{{ .Values.serviceOne.tag }}
           command: [ 'sh', '-c', 'until wget --spider http://service-one:8181/portal-one/management/actuator/heart-beat; do echo Waiting for service-one-heart-beat; sleep 5; done;' ]
       containers:

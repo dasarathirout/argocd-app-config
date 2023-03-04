@@ -1,8 +1,8 @@
 # Default Values For :  dasarathi-service-apis-charts.
-environment: development
 application:
   name: 'dasarathi-k8s'
-  labels: 'drout'
+  environment: 'development'
+  labels: 'spring-boot'
 
 database:
   hostname: 'postgresql'
