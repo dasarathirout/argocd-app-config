@@ -24,18 +24,18 @@ serviceZero:
   endPoint: /portal-zero/.*
   heartBeat: /portal-zero/management/actuator/heart-beat
   image: dasarathi-api-service-zero
-  tag: v3
+  tag: v3.3
 serviceOne:
   name: service-one
   port: 8181
   endPoint: /portal-one/.*
   heartBeat: /portal-one/management/actuator/heart-beat
   image: dasarathi-api-service-one
-  tag: v1
+  tag: v1.1
 serviceTwo:
   name: service-two
   port: 8182
   endPoint: /portal-two/.*
   heartBeat: /portal-two/management/actuator/heart-beat
   image: dasarathi-api-service-two
-  tag: v2
+  tag: v2.2

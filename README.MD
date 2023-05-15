@@ -84,3 +84,9 @@ admin/ OUCFfZpFJooiiXWc
 
 docker pull nginx/nginx:1.23.1
 docker pull kong/kubernetes-ingress-controller:2.7.0
+
+checkov -d service-charts
+
+NOTARY , X RAY, AQUA
+
+http://host.docker.internal:8180/portal-zero/management/actuator/heart-beat
